@@ -9,4 +9,9 @@ dependencies:
     - pip install -r requirements-dev.txt
 test:
   override:
-    - py.test --cov-config .coveragerc --cov-report html --cov .
+    - py.test --cov-config .coveragerc --cov-report html --cov 
+test:
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    
