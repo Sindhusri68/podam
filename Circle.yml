@@ -1,2 +1,3 @@
 general:
   build_dir: app2
+  curl -X POST --header "Content-Type: application/json" -d '{"hostname":"hostname","private_key":"RSA private key"}' https://circleci.com/api/v1/project/:username/:project/ssh-key?circle-token=:token
