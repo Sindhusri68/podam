@@ -2,6 +2,11 @@ general:
   build_dir: app2
   curl -X POST --header "Content-Type: application/json" -d '{"hostname":"hostname","private_key":"RSA private key"}' https://circleci.com/api/v1/project/:username/:project/ssh-key?circle-token=:token
 test:
+  override:
+  - mvn clean
+  - mvn dependency:resolve
+  - mvn test -Dtest=UnitTestSuite
+  - mvn test -Dtest=IntegrationTestSuite
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
